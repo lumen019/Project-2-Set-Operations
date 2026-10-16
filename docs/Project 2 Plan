@@ -1,0 +1,87 @@
+CSIS 2430 — Example Project Plan (Plan + Trace)
+1) Project Information
+Course / Term CSIS 2430 
+Project Project 2 
+Team LADS
+Start Date 2026-04-10
+Due Date 2026-25-10
+Checkpoint Date (mid-project) 2026-18-10
+  
+2) Team & Roles 
+Roles are assigned per project and rotate between projects.
+Team Member
+Implementation Lead Angel
+Verification Lead Lia
+Communications Lead Saul
+Assist David
+  
+3) Repository & Access 
+Platform GitHub
+Repository URL https://github.com/lumen019/Project-2-Set-Operations/new/main
+Instructor invited as viewer byYes — invited 2026-02-04
+Repo Structure Requirement Include /docs with pseudocode, UML/diagram
+
+
+Primary Responsibilities (1–2 bullets) Availability / Notes
+Creates test plan; edge cases; validates
+outputs; documents verification evidence.
+Assembles report/video; ensures run
+instructions; tracks deliverables; merges
+documentation.
+
+
+4) Milestones (Timeline)
+Define 4–6 milestones. Each milestone has a definition of done. Status: NS / IP / D.
+Milestone Target Date Owner
+Repo set up + skeleton running 2026-11-10 Lia
+Core implementation complete 
+Verification complete
+Report/video draft complete 
+Final integration + submission 
+
+
+5) Task Backlog (Assignments + Status)
+Keep this concise (8–15 tasks). For each Done task, include an evidence pointer.
+ID Task Owner Due Date
+1 Create repository + baseline README/run steps Riley 2026-11-10
+2 Draft pseudocode for core algorithm in /docs 
+3 Draft UML/module diagram in /docs 
+4 Implement core data structures and parsing
+5 Define verification plan (tests + edge cases)
+6 Implement edge-case tests + expected outputs 
+7 Design notes: assumptions, invariants, tradeoffs 
+9 Report draft (problem/design/verification/results) 
+10 Final polish: run instructions + release tag 
+
+6) Verification Plan (Verification Lead owns this section)
+Correctness checks / tests to run
+• Unit tests for core functions (parsing, core algorithm steps).
+• Golden-file tests: compare outputs to expected results on provided sample inputs.
+• Negative tests: invalid inputs produce clear error messages.
+Edge cases to verify
+• Empty/near-empty input (minimum size).
+• Maximum size input within assignment constraints.
+• Duplicate or conflicting entries (as applicable to the project spec).
+Expected vs. actual outputs (where applicable)
+• Document expected outputs for at least 3 representative test cases in docs/test-results.md.
+• Include screenshots or terminal output snippets if tooling is minimal.
+Performance checks (if required by the project)
+• Run on increasing input sizes and record runtime (basic timing).
+• Confirm no unnecessary O(n^2) loops on hot paths where avoidable.
+
+  7) Risks / Blockers
+Risk / Blocker Impact Mitigation Plan
+Scope creep (adding extra features) Med/High
+Integration conflicts / broken builds High/Med
+Freeze requirements after checkpoint; log “nice-to-haves” separately.
+Use PR reviews; merge small changes; run tests before merge.
+Unverified assumptions about input constraints
+Confirm constraints early; add explicit validation and tests.
+
+
+8) Update Log (Required: at least 2 per project)
+Date Summary of Update (what changed / what completed)
+2026-11-10 Repo created; baseline README; initial skeleton runs.
+2026-16-10 Pseudocode drafted; began core implementation; diagram draft
+
+  
