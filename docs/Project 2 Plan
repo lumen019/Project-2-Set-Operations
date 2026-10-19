@@ -18,16 +18,17 @@ Assist David
 3) Repository & Access 
 Platform GitHub
 Repository URL https://github.com/lumen019/Project-2-Set-Operations/new/main
-Instructor invited as viewer byYes — invited 2026-02-04
-Repo Structure Requirement Include /docs with pseudocode, UML/diagram
+Instructor invited as viewer by 
+Repo Structure Requirement Include /docs with Scope and Design Notes.
 
 
 Primary Responsibilities (1–2 bullets) Availability / Notes
 Creates test plan; edge cases; validates
-outputs; documents verification evidence.
+outputs; documents verification evidence. Lia
 Assembles report/video; ensures run
-instructions; tracks deliverables; merges
-documentation.
+instructions; Saul
+tracks deliverables; 
+merges documentation. Angel/David
 
 
 4) Milestones (Timeline)
@@ -36,6 +37,7 @@ Milestone Target Date Owner
 Repo set up + skeleton running 2026-11-10 Lia
 Core implementation complete 
 Verification complete
+Change Order complete
 Report/video draft complete 
 Final integration + submission 
 
@@ -43,15 +45,14 @@ Final integration + submission
 5) Task Backlog (Assignments + Status)
 Keep this concise (8–15 tasks). For each Done task, include an evidence pointer.
 ID Task Owner Due Date
-1 Create repository + baseline README/run steps Riley 2026-11-10
-2 Draft pseudocode for core algorithm in /docs 
-3 Draft UML/module diagram in /docs 
+1 Create repository + baseline README/run steps Lia 2026-11-10
+2 Draft Scope for core algorithm in /docs David 2026-16-10
+3 Draft Design Notes diagram in /docs David 2026-16-10
 4 Implement core data structures and parsing
 5 Define verification plan (tests + edge cases)
-6 Implement edge-case tests + expected outputs 
-7 Design notes: assumptions, invariants, tradeoffs 
-9 Report draft (problem/design/verification/results) 
-10 Final polish: run instructions + release tag 
+6 Implement edge-case tests + expected outputs  
+7 Report draft (problem/design/verification/results) 
+8 Final polish: run instructions + release tag 
 
 6) Verification Plan (Verification Lead owns this section)
 Correctness checks / tests to run
@@ -82,6 +83,7 @@ Confirm constraints early; add explicit validation and tests.
 8) Update Log (Required: at least 2 per project)
 Date Summary of Update (what changed / what completed)
 2026-11-10 Repo created; baseline README; initial skeleton runs.
-2026-16-10 Pseudocode drafted; began core implementation; diagram draft
+2026-16-10 Design Notes and Scope drafted; 
+2026-18-10 Began core implementation; diagram draft
 
   
