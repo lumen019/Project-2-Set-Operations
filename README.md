@@ -1,5 +1,6 @@
 # Project-2-Set-Operations
 
-Implementation Lead 
-Verification Lead
-Communications Lead
+Implementation Lead Angel
+Verification Lead Lia
+Communications Lead Saul
+Assist David
