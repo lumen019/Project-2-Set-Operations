@@ -1,0 +1,26 @@
+!SESSION 2026-10-20 23:43:07.795 -----------------------------------------------
+eclipse.buildId=4.41.0.20260903-0719
+java.version=25.0.4.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=macosx, ARCH=aarch64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/liaday/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch aarch64 -product org.eclipse.epp.package.java.product -keyring /Users/liaday/.eclipse_keyring
+
+!ENTRY ch.qos.logback.classic 1 0 2026-10-20 23:43:10.405
+!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
+
+!ENTRY ch.qos.logback.classic 1 0 2026-10-20 23:43:17.298
+!MESSAGE Logback config file: /Users/liaday/repos/Project-2-Set-Operations/.metadata/.plugins/org.eclipse.m2e.logback/logback.2.7.201.20260831-2044.xml
+!SESSION 2026-10-20 23:44:45.062 -----------------------------------------------
+eclipse.buildId=4.41.0.20260903-0719
+java.version=25.0.4.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=macosx, ARCH=aarch64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/liaday/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch aarch64 -product org.eclipse.epp.package.java.product -keyring /Users/liaday/.eclipse_keyring
+
+!ENTRY ch.qos.logback.classic 1 0 2026-10-20 23:44:47.680
+!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
+
+!ENTRY ch.qos.logback.classic 1 0 2026-10-20 23:44:54.784
+!MESSAGE Logback config file: /Users/liaday/repos/Project-2-Set-Operations/.metadata/.plugins/org.eclipse.m2e.logback/logback.2.7.201.20260831-2044.xml
