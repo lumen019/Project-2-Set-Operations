@@ -24,7 +24,15 @@ public class OridinarySet {
 		}
 	}
 	
-	public boolean[] notA() {
+	  private void checkSameUniverse(OridinarySet set2) {
+		    if (this.universe != set2.universe) {
+		      throw new IllegalArgumentException("Multiset use different univserses");
+		    }
+		  }
+	
+	public boolean[] notA(OridinarySet set2) {
+		checkSameUniverse(set2);
+		
 		boolean[] result = new boolean[set1.length];
 		for(int i = 0; i < set1.length; i++) {
 			result[i] = !set1[i];
@@ -35,6 +43,8 @@ public class OridinarySet {
 	}
 	
 	public boolean[] union(OridinarySet set2) {
+		checkSameUniverse(set2);
+		
 		boolean[] result = new boolean[set1.length];
 		
 		for(int i = 0; i < set1.length; i++) {
@@ -46,6 +56,8 @@ public class OridinarySet {
 	
 	
 	public boolean[] intersection(OridinarySet set2) {
+		checkSameUniverse(set2);
+		
 		boolean[] result = new boolean[set1.length];
 		
 		for(int i = 0; i < set1.length; i++) {
@@ -56,6 +68,8 @@ public class OridinarySet {
 	}
 	
 	public boolean[] difference(OridinarySet set2) {
+		checkSameUniverse(set2);
+		
 		boolean[] result = new boolean[set1.length];
 		
 		for(int i = 0; i < set1.length; i++) {
@@ -66,6 +80,8 @@ public class OridinarySet {
 	}
 	
 	public boolean[] symmetricDifference(OridinarySet set2) {
+		checkSameUniverse(set2);
+		
 		boolean[] result = new boolean[set1.length];
 		
 		for(int i = 0; i < set1.length; i++) {
