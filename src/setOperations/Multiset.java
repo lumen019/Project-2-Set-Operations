@@ -9,6 +9,7 @@
 
 package setOperations;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Multiset {
@@ -78,4 +79,11 @@ public class Multiset {
   public int[] getCounts() {
     return counts.clone();
   }
+
+  @Override
+  public String toString() {
+	return Arrays.toString(counts);
+  }
+  
+  
 }
