@@ -2,11 +2,11 @@ package setOperations;
 
 import java.util.List;
 
-public class OridinarySet {
+public class OrdinarySet {
 	private Universe universe;
 	private boolean[] set1;
 	
-	public OridinarySet(Universe universe, List<String> names) {
+	public OrdinarySet(Universe universe, List<String> names) {
 		if (universe == null || names == null) {
 			throw new IllegalArgumentException("Universe and names can't be null");
 		}
@@ -24,13 +24,13 @@ public class OridinarySet {
 		}
 	}
 	
-	  private void checkSameUniverse(OridinarySet set2) {
+	  private void checkSameUniverse(OrdinarySet set2) {
 		    if (this.universe != set2.universe) {
 		      throw new IllegalArgumentException("Multiset use different univserses");
 		    }
 		  }
 	
-	public boolean[] notA(OridinarySet set2) {
+	public boolean[] notA(OrdinarySet set2) {
 		checkSameUniverse(set2);
 		
 		boolean[] result = new boolean[set1.length];
@@ -42,7 +42,7 @@ public class OridinarySet {
 		
 	}
 	
-	public boolean[] union(OridinarySet set2) {
+	public boolean[] union(OrdinarySet set2) {
 		checkSameUniverse(set2);
 		
 		boolean[] result = new boolean[set1.length];
@@ -55,7 +55,7 @@ public class OridinarySet {
 	}
 	
 	
-	public boolean[] intersection(OridinarySet set2) {
+	public boolean[] intersection(OrdinarySet set2) {
 		checkSameUniverse(set2);
 		
 		boolean[] result = new boolean[set1.length];
@@ -67,7 +67,7 @@ public class OridinarySet {
 		return result;
 	}
 	
-	public boolean[] difference(OridinarySet set2) {
+	public boolean[] difference(OrdinarySet set2) {
 		checkSameUniverse(set2);
 		
 		boolean[] result = new boolean[set1.length];
@@ -79,7 +79,7 @@ public class OridinarySet {
 		return result;
 	}
 	
-	public boolean[] symmetricDifference(OridinarySet set2) {
+	public boolean[] symmetricDifference(OrdinarySet set2) {
 		checkSameUniverse(set2);
 		
 		boolean[] result = new boolean[set1.length];

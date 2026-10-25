@@ -11,12 +11,16 @@ public class Main {
 	List<String> names = Arrays.asList("Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "The Moon");
 	
 	Universe universe = new Universe(names);
+	//Ordinary Set Section
 	
-    OridinarySet a = new OridinarySet(universe, Arrays.asList("Mercury", "Venus", "Earth", "Mars"));
-    OridinarySet b = new OridinarySet(universe, Arrays.asList("Jupiter", "Saturn", "Uranus", "Mars"));
+    OrdinarySet a = new OrdinarySet(universe, Arrays.asList("Mercury", "Venus", "Earth", "Mars"));
+    OrdinarySet b = new OrdinarySet(universe, Arrays.asList("Jupiter", "Saturn", "Uranus", "Mars"));
     
+    System.out.println("Ordinary Set Section");
+    System.out.println("------------------------------");
     System.out.println("Ordinary Set A: " + a);
     System.out.println("Ordinary Set B: " + b);
+    System.out.println();
     System.out.println("Not(A): " + a.convertToList(a.notA(b)));
     System.out.println("Union: " + a.convertToList(a.union(b)));
     System.out.println("Intersection: " + a.convertToList(a.intersection(b)));
@@ -24,18 +28,23 @@ public class Main {
     System.out.println("Symmetric Difference: " + a.convertToList(a.symmetricDifference(b)));
     
     System.out.println();
-    
+    //Multiset Section
+
     Multiset multia = new Multiset(universe, Arrays.asList("Earth", "Earth", "Mercury", "Mercury", "Saturn", "Saturn", "Pluto"));
     Multiset multib = new Multiset(universe, Arrays.asList("Mercury", "Mercury", "Mercury", "Earth", "Earth", "The Moon"));
-    
+    System.out.println("Multiset Section");
+    System.out.println("------------------------------");
     System.out.println("Multiset A: " + multia);
-    System.out.println("Multiset A: " + multib);
+    System.out.println("Multiset B: " + multib);
+    System.out.println();
     System.out.println("Multiset union: " + multia.union(multib));
-    System.out.println("Multiset union: " + multia.intersection(multib));
-    System.out.println("Multiset union: " + multia.difference(multib));
-    System.out.println("Multiset union: " + multia.sum(multib));
+    System.out.println("Multiset intersection: " + multia.intersection(multib));
+    System.out.println("Multiset difference: " + multia.difference(multib));
+    System.out.println("Multiset sum: " + multia.sum(multib));
     
-  //FuzzySet Section
+    System.out.println();
+    
+    //FuzzySet Section
     System.out.println("Fuzzy Set Section");
     System.out.println("------------------------------");
     Map<String, Double> mapA = new HashMap<>();
