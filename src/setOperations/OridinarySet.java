@@ -7,23 +7,30 @@ public class OridinarySet {
 	private boolean[] set1;
 	
 	public OridinarySet(Universe universe, List<String> names) {
+		if (universe == null || names == null) {
+			throw new IllegalArgumentException("Universe and names can't be null");
+		}
+		
 		this.universe = universe;
 		set1 = new boolean[universe.size()];
 		
-		//marks each name true for its corresponding index in boolean array elements.
 		for(String name: names) {
+			if(name == null || name.isBlank()) {
+				throw new IllegalArgumentException("Name can't be null or blank");
+			}
+			
 			int index = universe.indexOf(name);
 			set1[index] = true;
 		}
 	}
 	
 	public boolean[] notA() {
-		boolean[] complement = new boolean[set1.length];
+		boolean[] result = new boolean[set1.length];
 		for(int i = 0; i < set1.length; i++) {
-			complement[i] = !set1[i];
+			result[i] = !set1[i];
 		}
 		
-		return complement;
+		return result;
 		
 	}
 	
@@ -66,5 +73,17 @@ public class OridinarySet {
 		}
 		
 		return result;
+	}
+	
+	public List<String> convertToList (boolean[] result){
+		List<String> resultList = new java.util.ArrayList<String>();
+		
+		for (int i = 0; i<result.length; i++) {
+			if(result[i]) {
+				resultList.add(universe.nameAt(i));
+			}
+		}
+	
+		return resultList;
 	}
 }
