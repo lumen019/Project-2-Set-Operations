@@ -9,7 +9,6 @@
 
 package setOperations;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Multiset {
@@ -82,7 +81,18 @@ public class Multiset {
 
   @Override
   public String toString() {
-	return Arrays.toString(counts);
+	StringBuilder sb = new StringBuilder();
+	sb.append("{");
+	for(int i = 0; i < universe.size(); i++) {
+		if(i > 0) {
+			sb.append(", ");
+		}
+		
+		sb.append(universe.nameAt(i) + " = " + counts[i]);
+	}
+	sb.append("}");
+	
+	return sb.toString();
   }
   
   
