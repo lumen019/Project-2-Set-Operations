@@ -102,4 +102,11 @@ public class OridinarySet {
 	
 		return resultList;
 	}
+
+	@Override
+	public String toString() {
+		return convertToList(set1).toString();
+	}
+	
+	
 }
