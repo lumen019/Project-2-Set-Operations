@@ -26,7 +26,12 @@ public class Main {
     Multiset multia = new Multiset(universe, Arrays.asList("Earth", "Earth", "Mercury", "Mercury", "Saturn", "Saturn", "Pluto"));
     Multiset multib = new Multiset(universe, Arrays.asList("Mercury", "Mercury", "Mercury", "Earth", "Earth", "The Moon"));
     
+    System.out.println("Multiset A: " + multia);
+    System.out.println("Multiset A: " + multib);
     System.out.println("Multiset union: " + multia.union(multib));
+    System.out.println("Multiset union: " + multia.intersection(multib));
+    System.out.println("Multiset union: " + multia.difference(multib));
+    System.out.println("Multiset union: " + multia.sum(multib));
   }
 
 }
