@@ -1,7 +1,9 @@
 package setOperations;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
@@ -32,6 +34,35 @@ public class Main {
     System.out.println("Multiset union: " + multia.intersection(multib));
     System.out.println("Multiset union: " + multia.difference(multib));
     System.out.println("Multiset union: " + multia.sum(multib));
+    
+  //FuzzySet Section
+    System.out.println("Fuzzy Set Section");
+    System.out.println("------------------------------");
+    Map<String, Double> mapA = new HashMap<>();
+    mapA.put("Mercury", 0.2);
+    mapA.put("Venus", 0.0);
+    mapA.put("Earth", 0.7);
+    mapA.put("Mars", 1.0);
+    mapA.put("Jupiter", 0.5);
+    mapA.put("Uranus", 0.9);
+
+    Map<String, Double> mapB = new HashMap<>();
+    mapB.put("Venus", 0.0);
+    mapB.put("Earth", 0.4);
+    mapB.put("Jupiter", 0.5);
+    mapB.put("Saturn", 0.5);
+    mapB.put("Uranus", 1.0);
+    mapB.put("Neptune", 0.1);
+    
+    FuzzySet fuzzyA = new FuzzySet(universe, mapA);
+    FuzzySet fuzzyB = new FuzzySet(universe, mapB);
+
+    System.out.println("Fuzzy Set A: " + fuzzyA);
+    System.out.println("Fuzzy Set B: " + fuzzyB);
+    System.out.println();
+    System.out.println("Fuzzy Set A Union B: " + fuzzyA.union(fuzzyB));
+    System.out.println("Fuzzy Set A Intersection B: " + fuzzyA.intersection(fuzzyB));
+    System.out.println("Fuzzy Set A Complement: " + fuzzyA.complement());
   }
 
 }
