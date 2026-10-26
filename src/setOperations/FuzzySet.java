@@ -22,18 +22,21 @@ public class FuzzySet {
 		}
 	}
 
-	/**
-	 * @param universe
-	 * @param entries
-	 */
 	public FuzzySet(Universe universe, Map<String, Double> entries) {
-		this.universe = universe;
-		this.degrees = new double[universe.size()];
-		for (Map.Entry<String, Double> entry : entries.entrySet()) {
-			checkDegree(entry.getValue());
-			int pos = universe.indexOf(entry.getKey());
-			degrees[pos] = entry.getValue();	
-		}
+	    if (universe == null || entries == null) {
+	        throw new IllegalArgumentException("Universe and entries can't be null");
+	    }
+	    this.universe = universe;
+	    this.degrees = new double[universe.size()];
+	    for (Map.Entry<String, Double> entry : entries.entrySet()) {
+	        Double degree = entry.getValue();
+	        if (degree == null) {
+	            throw new IllegalArgumentException("Degree can't be null for: " + entry.getKey());
+	        }
+	        checkDegree(degree);
+	        int pos = universe.indexOf(entry.getKey());
+	        degrees[pos] = degree;
+	    }
 	}
 	
 	public double getDegree(String name) {
@@ -47,6 +50,10 @@ public class FuzzySet {
 	}
 	
 	private void checkSameUniverse(FuzzySet other) {
+		if (other == null) {
+		    throw new IllegalArgumentException("Other set can't be null");
+		}
+		
 		if(this.universe != other.universe) {
 			throw new IllegalArgumentException("FuzzySet uses different universes");
 		}

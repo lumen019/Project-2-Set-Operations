@@ -191,6 +191,35 @@ public class SetTests {
 
 	    //Edge case Test Unset vs Explicit 0.0
 	    checkClose("Venus explicit 0.0 equals Pluto unset", fuzzyA.getDegree("Venus"), fuzzyA.getDegree("Pluto"));
+	    
+	  //Edge case Test null degree
+	    badMap.clear();
+	    badMap.put("Earth", null);
+	    try {
+	        new FuzzySet(UNIVERSE, badMap);
+	        check("null degree rejected (no exception thrown)", false);
+	    }
+	    catch (IllegalArgumentException e) {
+	        check("null degree rejected | message: " + e.getMessage(), true);
+	    }
+
+	    //Edge case Test null map
+	    try {
+	        new FuzzySet(UNIVERSE, (Map<String, Double>) null);
+	        check("null map rejected (no exception thrown)", false);
+	    }
+	    catch (IllegalArgumentException e) {
+	        check("null map rejected | message: " + e.getMessage(), true);
+	    }
+
+	    //Edge case Test null other set
+	    try {
+	        fuzzyA.union(null);
+	        check("union with null set rejected (no exception thrown)", false);
+	    }
+	    catch (IllegalArgumentException e) {
+	        check("union with null set rejected | message: " + e.getMessage(), true);
+	    }
 	}
 	
 
