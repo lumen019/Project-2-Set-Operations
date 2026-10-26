@@ -2,8 +2,8 @@
  * Team name: LADS
  * Team members: Lia, Angel, David, Saul
  * Course: CSIS 2430
- * Programming Project 2
- * File Author: Angel, ___, ___
+ * Programming Project 2 Fall 2026
+ * File Author: Angel, Saul, Lia
  */
 
 package setOperations;

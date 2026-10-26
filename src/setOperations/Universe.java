@@ -4,7 +4,6 @@
  * Course: CSIS 2430 Section 501
  * Programming Project 2 Fall 2026
  * File Author: Saul
- }
  */
 package setOperations;
 
