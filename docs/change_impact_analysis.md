@@ -1,42 +1,37 @@
-# Project 2 Change Impact Analysis: Fuzzy Sets
+Project 2 Change Impact Analysis: Fuzzy Sets
 
-Team LADS (Lia, Angel, David, Saul), CSIS 2430
+Team LADS (Lia, Angel, David, Saul), CS 2430 Section 501, Fall 2026
 
-## What changed
+This analysis answers the questions in Section 8B of the assignment. Evidence pointers are commit hashes, file names, and function names from the project repository. Test results are in docs/test-results.md.
 
-- **`FuzzySet.java` (new, commit `5b33943`).** A fuzzy set needs a decimal degree from 0.0 to 1.0 for each element, so it could not reuse the `boolean[]` from `OrdinarySet` or the `int[]` from `Multiset`. `FuzzySet` stores a `double[] degrees` indexed through `Universe`. Its constructor takes a `Map<String, Double>` of element names to degrees. `getDegree(String name)` retrieves a degree. `union` (max), `intersection` (min), and `complement` (1.0 minus the degree) each return a new `FuzzySet`.  
-- **Invalid input.** `FuzzySet.checkDegree()` throws an `IllegalArgumentException` for any degree outside \[0.0, 1.0\]. It is written as `!(degree >= 0.0 && degree <= 1.0)` so that `NaN` is rejected too, since every comparison with `NaN` is false. A name that is not in the universe is rejected by `Universe.indexOf()`.  
-- **Missing entries.** An element with no entry stays at 0.0, because Java fills a new `double[]` with 0.0. This matches the change order, and its complement is 1.0.  
-- **Demo (commit `cd040f7`).** A fuzzy section was added to `Main`.  
-- **Tests (commit `97bb031`).** `SetTests.testFuzzySet()` runs 39 checks. They cover all 10 elements for union, intersection, and complement (elements in both sets, in one set, and in neither, with degrees 0.0, 1.0, and in between), plus edge cases: degrees 1.5, \-0.2, and `NaN`, a name not in the universe, sets from two different universes, an empty map, and an unset element versus an explicit 0.0. The tolerance for comparing decimals is `0.000001` (`SetTests.TOLERANCE`). Result: 39 of 39 checks passed. Complement of Earth gives `0.30000000000000004` and complement of Uranus gives `0.09999999999999998`, which is why a tolerance is needed.
+1. What new behavior did the Change Request require, and how did it differ?
 
-## What did not change
+The Change Request asked us to add fuzzy sets. In an ordinary set an element is either present or absent, and we store that as one boolean per element. In a multiset an element has a whole-number count, and we store one int per element. In a fuzzy set an element has a membership degree, a decimal between 0.0 and 1.0 inclusive. This differed from the earlier requirements in four ways. The values are decimals, so results cannot be compared with == and we needed a tolerance (SetTests.TOLERANCE, 0.000001). The values have a valid range, so we needed input validation. Complement is defined as 1.0 minus the degree, and it applies to every element of the universe, including elements that were never given a degree. An unset element has degree 0.0, so its complement is 1.0. Finally, union takes the maximum and intersection takes the minimum, which is the same rule our multiset already used for counts. The implementation is FuzzySet.java, added in commit 5b33943.
 
-- **`Universe.java`** was reused without modification. It only maps names to fixed positions and does not care what value is stored at each position, so a `double[]` works the same way an `int[]` or `boolean[]` does.  
-- The logic of `OrdinarySet` and `Multiset` operations was not modified by the fuzzy work. The fuzzy commits (`5b33943`, `cd040f7`) touched only `FuzzySet.java` and `Main.java`.  
-- `FuzzySet` reuses `Multiset`'s structure, but by copying the pattern, not by sharing code: an array indexed through `Universe`, a private constructor that wraps a result array, a `checkSameUniverse` method, and operations that return a new object. `Multiset.union` and `Multiset.intersection` already use `Math.max` and `Math.min`, which is exactly what fuzzy union and intersection need.
+2. Which parts of the original implementation required no modification?
 
-## Refactoring
+The code in Universe.java was reused without any change. It was written in commit 08d2d44, and its only later edits were to the header comment. The operation logic in OrdinarySet and Multiset was also not modified for the fuzzy work. Commit 5b33943, which added the whole fuzzy set class, contains one new file (FuzzySet.java, 128 lines) and touches nothing else. This shows that Universe was a good design choice. It only maps an element name to a fixed position, and it does not care what kind of value is stored at that position, so a double[] worked exactly like the int[] and boolean[] already in the project.
 
-- **Commit `9231caa`:** renamed `OridinarySet` to `OrdinarySet` and made the console output in `Main` consistent, with a labeled section for each set type.  
-- **Commit `97bb031`:** changed `Multiset.toString()` from printing the raw count array to printing `name = count` pairs, so all three set types print in the same style as `FuzzySet`.  
-- **How existing behavior was verified.** The Multiset counts printed by `Main` before and after are the same (for example, union went from `[3, 0, 2, 0, 0, 2, 0, 0, 1, 1]` to the same counts with names attached), and the ordinary set results are identical. \[TODO: add the Set and Multiset checks from `SetTests.testOrdinarySet()` and `SetTests.testMultiset()` once they are written, with results.\]
+3. Which parts required modification or refactoring, and why?
 
-## Design strengths and weaknesses
+No existing class had to change for the fuzzy operations to work. The changes we made to existing code were small consistency changes made at the same time. Commit 9231caa renamed OridinarySet to OrdinarySet (a spelling fix) and made the labels in Main consistent, with a clearly labeled section for each set type. Commit 97bb031 changed Multiset.toString() from printing the raw count array to printing name = count pairs, so that multisets, ordinary sets, and fuzzy sets all print in a similar readable form. Main also gained a new fuzzy set section (commit cd040f7). We did these so the demo output for all three structures reads the same way and so the new tests could print results in a consistent style.
 
-**Strengths.**
+4. What original design decision made the new requirement easiest to integrate?
 
-- The fixed-position `Universe` made the extension easy. Every set type is one value per position, so each fuzzy operation is a single loop over positions.  
-- Using an array gave the "missing entry is 0.0" rule for free.  
-- The private wrapping constructor and `final` fields made each set immutable, so operations could not accidentally change an input.
+The fixed-position Universe made it easy. Every set type stores exactly one value per universe position, so each fuzzy operation is one loop over the positions. Multiset also gave us a template. It has a private constructor that wraps a result array, final fields so objects cannot change after they are built, a same-universe check, and operations that return a new object. FuzzySet follows the same structure. Multiset.union already used Math.max and Multiset.intersection already used Math.min, so the fuzzy versions are the same loops with double values. The rule that an unset element has degree 0.0 came for free, because Java fills a new double[] with 0.0.
 
-**Weaknesses.**
+5. What original assumption or design decision made the new requirement most difficult to integrate?
 
-- Our design notes (`docs/proj_2_design-notes.md`) called for a common interface or base class for the set types. We never built one, so `FuzzySet` could not plug into anything shared.  
-- `checkSameUniverse` is written three times: `OrdinarySet`, `Multiset`, and `FuzzySet`. The first two even share the same message text, including a typo.  
-- The operations have no common return type. `OrdinarySet` returns `boolean[]`, `Multiset` returns `Multiset`, and `FuzzySet` returns `FuzzySet`. `OrdinarySet.notA()` also takes a second set that it does not use, while `FuzzySet.complement()` takes none.  
-- Universes are compared by identity (`!=`), so two universes with the same names are rejected. This is why `SetTests` uses one shared `UNIVERSE` constant.
+We never built the common interface or base class that our design notes (docs/proj_2_design-notes.md) said we would. Because of that, FuzzySet could not plug into anything shared, and we copied the same pattern a third time. The same-universe check (checkSameUniverse) is now written separately in OrdinarySet, Multiset, and FuzzySet, and the first two even share the same misspelling in their error messages. The three classes also return different types (boolean[], Multiset, and FuzzySet), so Main and the tests need separate code for each. Their complement methods do not match either: OrdinarySet.notA() takes a second set that it never uses, while FuzzySet.complement() takes none. Universes are compared by identity (!=), so two universes with the same names are treated as different, which is why SetTests uses one shared UNIVERSE constant. A fuzzy-specific difficulty was decimal arithmetic. 1.0 - 0.7 is 0.30000000000000004, which is why the tests use a tolerance.
 
-## Lessons learned
+6. How did you verify the new functionality and that Set and Multiset had not regressed?
 
-If we started again, we would define the shared operations (union, intersection, complement, and the universe check) in an interface or abstract class before writing the first set type. Then `FuzzySet` would have been a third implementation of an existing contract, the universe check would exist once, and one test loop could have exercised all three types. Without it, adding fuzzy sets meant copying the same pattern a third time and writing separate tests, and the same inconsistencies now exist in all three classes.
+SetTests.java runs 83 checks and all of them pass (output in docs/test-results.md). For fuzzy sets there are 42 checks. Thirty of them compare union, intersection, and complement for all ten elements against hand-worked expected values, covering degrees of 0.0, 1.0, and in between, and elements in both sets, in one set, and in neither. The other twelve are edge cases: degrees of 1.5, -0.2, and NaN, a name that is not in the universe, sets from two different universes, an empty map, an unset element compared with an explicit 0.0, and null inputs. For regression there are 41 checks on the original structures: three representative cases each for ordinary sets and multisets (all operations), plus edge cases (an empty set, a set minus itself, an unknown name, and different universes). Before the change, the only check on ordinary sets and multisets was reading the output of Main, so the regression tests were written after the fact from hand-worked expected values, in commits 97bb031, eee187a, and 7c53d4f. The ordinary set and multiset results printed by Main are the same before and after the change.
+
+7. What does the Git history show about how the team responded?
+
+The last commit before the change is 09c89d5, which has the working ordinary set and multiset code and demo. [TODO: create the tag pre-change-baseline on commit 09c89d5 and push it, then say so here.] After that, commit 5b33943 added FuzzySet.java as a single new file. Commit cd040f7 added the fuzzy demo to Main without removing any existing lines. Commit 9231caa was the follow-up refactor (rename and consistent labels), 97bb031 added SetTests.java, eee187a added handling for null inputs in FuzzySet, and 7c53d4f added the Set and Multiset regression cases. This sequence shows that the new feature was added next to the working code instead of rewriting it, that the logic of the existing classes was not touched, and that the cleanup and the regression tests came in small separate commits afterward.
+
+8. If you started again knowing only that a requirement would change, what would you design differently?
+
+We would write the shared contract first. That means an interface or abstract class for the operations (union, intersection, complement) and one shared universe check, placed in Universe so it exists once. Then FuzzySet would have been a third implementation of an existing contract, and a single test loop could have exercised all three types. We would also write automated tests together with the first set type, so that regression tests existed before the change and not after it, and we would tag the baseline commit at the moment the Change Request arrived. This connects directly to what happened here. Without the shared contract, adding fuzzy sets meant copying the same pattern a third time and writing separate tests, and the same inconsistencies now exist in all three classes.
