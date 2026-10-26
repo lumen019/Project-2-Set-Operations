@@ -36,12 +36,7 @@ We use the tag `pre-change-baseline` as the dividing line. It marks commit `09c8
 - `FuzzySet.java` (new class): commit `5b33943`  
 - Fuzzy set demo in `Main.java`: commit `cd040f7`  
 - Renamed `OridinarySet` to `OrdinarySet` and made the output labels consistent: commit `9231caa`  
-- `SetTests.java` with the fuzzy set checks and the decimal tolerance: commit `97bb031`  
-- Handling of `null` inputs in `FuzzySet`, with tests: commit `eee187a`  
-- Regression tests for ordinary sets and multisets (3 representative cases each plus edge cases): commit `7c53d4f`  
-- Header fixes, Javadoc comments for `FuzzySet`, and test updates: commits `d5e3e9e` and `b631571`  
-- The `pre-change-baseline` tag on commit `09c89d5`  
-- `docs/change_impact_analysis.md` and `docs/test-results.md`, uploaded through the GitHub website: commits `0c7bafc`, `a34fd59`, `f3cfd78`, and `3122cd7`
+- `SetTests.java` with the fuzzy set checks and the decimal tolerance: commit `97bb031`    
 
 **Lia** added headers to all source files and changed `Main.java` so each ordinary set result prints both the Boolean array and the element names. Evidence: commit `b6d80dd`. Commit `eb371bf` is a later push by the same account; its message ("zsh:1: command not found: q") is accidental terminal text and does not describe the change.
 
