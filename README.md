@@ -32,7 +32,7 @@ Main prints the demo for ordinary sets, multisets, and fuzzy sets. SetTests prin
 
 Project layout
 src/setOperations/: the source code (Universe, OrdinarySet, Multiset, FuzzySet, Main, SetTests)
-docs/: project plan, scope, design notes, the change order, the Change Impact Analysis (change_impact_analysis.md), and test results (test-results.md)
+docs/: project plan, scope, design notes, the change order, and test results (test-results.md)
 CONTRIBUTIONS.md: who did what, with evidence from the Git history
 Git history
 
