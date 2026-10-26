@@ -1,3 +1,11 @@
+/*
+ * Team name: LADS
+ * Team members: Lia, Angel, David, Saul
+ * Course: CSIS 2430
+ * Programming Project 2
+ * File Author: Lia
+ */
+
 package setOperations;
 
 import java.util.List;
@@ -26,7 +34,7 @@ public class OrdinarySet {
 	
 	  private void checkSameUniverse(OrdinarySet set2) {
 		    if (this.universe != set2.universe) {
-		      throw new IllegalArgumentException("Multiset use different univserses");
+		      throw new IllegalArgumentException("Sets use different univserses");
 		    }
 		  }
 	
@@ -105,7 +113,11 @@ public class OrdinarySet {
 
 	@Override
 	public String toString() {
-		return convertToList(set1).toString();
+		return "{" + String.join(", ", convertToList(set1) + "}");
+	}
+	
+	public boolean[] getSet() {
+		return set1.clone();
 	}
 	
 	

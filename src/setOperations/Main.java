@@ -1,3 +1,11 @@
+/*
+ * Team name: LADS
+ * Team members: Lia, Angel, David, Saul
+ * Course: CSIS 2430
+ * Programming Project 2
+ * File Author: Angel, Lia
+ */
+
 package setOperations;
 
 import java.util.Arrays;
@@ -18,14 +26,38 @@ public class Main {
     
     System.out.println("Ordinary Set Section");
     System.out.println("------------------------------");
-    System.out.println("Ordinary Set A: " + a);
+    
+    System.out.println("Ordinary Set A Boolean Array: " + Arrays.toString(a.getSet()));
+    System.out.println("Ordinary Set A Elements: " + a);
+    
+    System.out.println("Ordinary Set B Boolean Array: " + Arrays.toString(b.getSet()));
     System.out.println("Ordinary Set B: " + b);
+    
     System.out.println();
-    System.out.println("Not(A): " + a.convertToList(a.notA(b)));
-    System.out.println("Union: " + a.convertToList(a.union(b)));
-    System.out.println("Intersection: " + a.convertToList(a.intersection(b)));
-    System.out.println("Set Difference: " + a.convertToList(a.difference(b)));
-    System.out.println("Symmetric Difference: " + a.convertToList(a.symmetricDifference(b)));
+    
+    System.out.println("Not(A) Boolean Array: " + Arrays.toString(a.notA(b)));
+    System.out.println("Not(A) Elements: " + a.convertToList(a.notA(b)));
+    
+    System.out.println();
+    
+    System.out.println("Union Boolean Array: " + Arrays.toString(a.union(b)));
+    System.out.println("Union Elements: " + a.convertToList(a.union(b)));
+    
+    System.out.println();
+    
+    System.out.println("Intersection Boolean Array: " + Arrays.toString(a.intersection(b)));
+    System.out.println("Intersection Elements: " + a.convertToList(a.intersection(b)));
+    
+    System.out.println();
+    
+    System.out.println("Set Difference Boolean Array: " + Arrays.toString(a.difference(b)));
+    System.out.println("Set Difference Elements: " + a.convertToList(a.difference(b)));
+    
+    System.out.println();
+    
+    System.out.println("Symmetric Difference Elements: " + Arrays.toString(a.symmetricDifference(b)));
+    System.out.println("Symmetric Difference Elements: " + a.convertToList(a.symmetricDifference(b)));
+    
     
     System.out.println();
     //Multiset Section
