@@ -11,7 +11,7 @@ The commit history shows several GitHub names, so this table matches each name t
 | Team member | GitHub name(s) in the history | Role in the Project Plan |
 | :---- | :---- | :---- |
 | Angel | `angel789` (commits from Eclipse) and `boneless123` (files uploaded on the GitHub website). Both are the same GitHub account. | Implementation Lead |
-| Lia | `Lumen019` \[TODO: Lia to confirm\] | Verification Lead |
+| Lia | `Lumen019`  | Verification Lead |
 | Saul | `bro556` | Communications Lead |
 | David | `Darkness9823` | Assist |
 
@@ -27,7 +27,7 @@ We use the tag `pre-change-baseline` as the dividing line. It marks commit `09c8
 
 **Lia** wrote the ordinary set operations in `OrdinarySet.java` (not, union, intersection, difference, symmetric difference) and the first version of the ordinary set and multiset demo in `Main.java`. Evidence: commits `8399e92`, `2839a4b`, `1fb1f78`, `157ad1a`, and `09c89d5`.
 
-**Angel** has no commits before the baseline. \[TODO: Angel to add any earlier contribution that is not visible in Git, such as design discussion, or leave this line as it is.\]
+**Angel** has no commits before the baseline. Was unable to help due to out of control circumstances.
 
 ## After the Change Request (after `pre-change-baseline`)
 
@@ -45,12 +45,12 @@ We use the tag `pre-change-baseline` as the dividing line. It marks commit `09c8
 
 **Lia** added headers to all source files and changed `Main.java` so each ordinary set result prints both the Boolean array and the element names. Evidence: commit `b6d80dd`. Commit `eb371bf` is a later push by the same account; its message ("zsh:1: command not found: q") is accidental terminal text and does not describe the change.
 
-**Saul** \[TODO: Saul to list his work after the change, such as the report, README, packaging, or the screencast, with evidence pointers.\]
+**Saul** Added documentation to other files and added to the report.
 
-**David** \[TODO: David to list his work after the change, with evidence pointers.\]
+**David** Worked on the plan and the report. 
 
 ## Other deliverables
 
-- Team report (PDF): \[TODO: who wrote it, and where it is\]  
-- Screencast: \[TODO: who recorded it, and the link\]  
+- Team report (PDF): Everyone contributed
+- Screencast: Everyone contributed
 - Weekly status reports and peer reviews are submitted separately in Canvas.
