@@ -39,9 +39,21 @@ public class SetTests {
 	    check(label + " | expected " + expected + ", actual " + actual, ok);
 	}
 	
+
+	private static void checkList(String label, List<String> expected, List<String> actual) {
+	    check(label + " | expected " + expected + ", actual " + actual, expected.equals(actual));
+	}
+
+	private static void checkCounts(String label, int[] expected, int[] actual) {
+	    check(label + " | expected " + Arrays.toString(expected) + ", actual " + Arrays.toString(actual),
+	          Arrays.equals(expected, actual));
+	}
+
 	public static void main(String[] args) {
 	    System.out.println("Set Tests");
 	    System.out.println("------------------------------");
+	    testOrdinarySet();
+	    testMultiset();
 	    testFuzzySet();
 	    System.out.println();
 	    System.out.println(passed + " of " + total + " checks passed");
@@ -49,6 +61,7 @@ public class SetTests {
 
 	private static void testFuzzySet() {
 		//building maps for Fuzzy Set Tests
+		System.out.println();
 		System.out.println("Fuzzy Set Section");
 	    System.out.println("------------------------------");
 	    Map<String, Double> mapA = new HashMap<>();
@@ -223,5 +236,159 @@ public class SetTests {
 	}
 	
 
-}
+	//Runs one representative ordinary set case: builds A and B, then checks all five operations
+	private static void ordinaryCase(String name, List<String> aNames, List<String> bNames,
+	        List<String> expNotA, List<String> expUnion, List<String> expIntersection,
+	        List<String> expDifference, List<String> expSymmetric) {
+	    OrdinarySet a = new OrdinarySet(UNIVERSE, aNames);
+	    OrdinarySet b = new OrdinarySet(UNIVERSE, bNames);
+	    System.out.println(name + ": A = " + aNames + ", B = " + bNames);
+	    checkList(name + " not A", expNotA, a.convertToList(a.notA(b)));
+	    checkList(name + " union", expUnion, a.convertToList(a.union(b)));
+	    checkList(name + " intersection", expIntersection, a.convertToList(a.intersection(b)));
+	    checkList(name + " difference (A - B)", expDifference, a.convertToList(a.difference(b)));
+	    checkList(name + " symmetric difference", expSymmetric, a.convertToList(a.symmetricDifference(b)));
+	}
 
+	private static void testOrdinarySet() {
+	    System.out.println();
+	    System.out.println("Ordinary Set Section");
+	    System.out.println("------------------------------");
+
+	    //Representative case 1: A and B overlap in one element (Mars)
+	    ordinaryCase("ordinary case 1",
+	        Arrays.asList("Mercury", "Venus", "Earth", "Mars"),
+	        Arrays.asList("Jupiter", "Saturn", "Uranus", "Mars"),
+	        Arrays.asList("Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "The Moon"),
+	        Arrays.asList("Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus"),
+	        Arrays.asList("Mars"),
+	        Arrays.asList("Mercury", "Venus", "Earth"),
+	        Arrays.asList("Mercury", "Venus", "Earth", "Jupiter", "Saturn", "Uranus"));
+
+	    //Representative case 2: A and B are disjoint (no shared elements)
+	    ordinaryCase("ordinary case 2",
+	        Arrays.asList("Mercury", "Earth", "Jupiter"),
+	        Arrays.asList("Venus", "Saturn", "Pluto"),
+	        Arrays.asList("Venus", "Mars", "Saturn", "Uranus", "Neptune", "Pluto", "The Moon"),
+	        Arrays.asList("Mercury", "Venus", "Earth", "Jupiter", "Saturn", "Pluto"),
+	        Arrays.asList(),
+	        Arrays.asList("Mercury", "Earth", "Jupiter"),
+	        Arrays.asList("Mercury", "Venus", "Earth", "Jupiter", "Saturn", "Pluto"));
+
+	    //Representative case 3: A is a subset of B
+	    ordinaryCase("ordinary case 3",
+	        Arrays.asList("Earth", "Mars"),
+	        Arrays.asList("Mercury", "Earth", "Mars", "Neptune"),
+	        Arrays.asList("Mercury", "Venus", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "The Moon"),
+	        Arrays.asList("Mercury", "Earth", "Mars", "Neptune"),
+	        Arrays.asList("Earth", "Mars"),
+	        Arrays.asList(),
+	        Arrays.asList("Mercury", "Neptune"));
+
+	    //Edge case Tests
+	    OrdinarySet a = new OrdinarySet(UNIVERSE, Arrays.asList("Mercury", "Venus", "Earth", "Mars"));
+	    OrdinarySet empty = new OrdinarySet(UNIVERSE, Arrays.asList());
+	    checkList("ordinary edge: empty set union A", Arrays.asList("Mercury", "Venus", "Earth", "Mars"),
+	              a.convertToList(empty.union(a)));
+	    checkList("ordinary edge: A minus A is empty", Arrays.asList(), a.convertToList(a.difference(a)));
+
+	    try {
+	        new OrdinarySet(UNIVERSE, Arrays.asList("John"));
+	        check("ordinary name John (not in universe) rejected", false);
+	    }
+	    catch (IllegalArgumentException e) {
+	        check("ordinary name John (not in universe) rejected | message: " + e.getMessage(), true);
+	    }
+
+	    Universe other = new Universe(Arrays.asList("Mercury", "Venus", "Earth"));
+	    OrdinarySet c = new OrdinarySet(other, Arrays.asList("Earth"));
+	    try {
+	        a.union(c);
+	        check("ordinary union across different universes rejected", false);
+	    }
+	    catch (IllegalArgumentException e) {
+	        check("ordinary union across different universes rejected | message: " + e.getMessage(), true);
+	    }
+	}
+
+	//Runs one representative multiset case: builds A and B, then checks the counts and all four operations
+	//Order of counts: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, The Moon
+	private static void multisetCase(String name, List<String> aNames, List<String> bNames,
+	        int[] expA, int[] expB, int[] expUnion, int[] expIntersection, int[] expDifference, int[] expSum) {
+	    Multiset a = new Multiset(UNIVERSE, aNames);
+	    Multiset b = new Multiset(UNIVERSE, bNames);
+	    System.out.println(name + ": A = " + aNames + ", B = " + bNames);
+	    checkCounts(name + " A counts", expA, a.getCounts());
+	    checkCounts(name + " B counts", expB, b.getCounts());
+	    checkCounts(name + " union (max)", expUnion, a.union(b).getCounts());
+	    checkCounts(name + " intersection (min)", expIntersection, a.intersection(b).getCounts());
+	    checkCounts(name + " difference (A - B, never below 0)", expDifference, a.difference(b).getCounts());
+	    checkCounts(name + " sum", expSum, a.sum(b).getCounts());
+	}
+
+	private static void testMultiset() {
+	    System.out.println();
+	    System.out.println("Multiset Section");
+	    System.out.println("------------------------------");
+
+	    //Representative case 1: same inputs as Main (Mercury and Earth repeat in both A and B)
+	    multisetCase("multiset case 1",
+	        Arrays.asList("Earth", "Earth", "Mercury", "Mercury", "Saturn", "Saturn", "Pluto"),
+	        Arrays.asList("Mercury", "Mercury", "Mercury", "Earth", "Earth", "The Moon"),
+	        new int[] {2, 0, 2, 0, 0, 2, 0, 0, 1, 0},
+	        new int[] {3, 0, 2, 0, 0, 0, 0, 0, 0, 1},
+	        new int[] {3, 0, 2, 0, 0, 2, 0, 0, 1, 1},
+	        new int[] {2, 0, 2, 0, 0, 0, 0, 0, 0, 0},
+	        new int[] {0, 0, 0, 0, 0, 2, 0, 0, 1, 0},
+	        new int[] {5, 0, 4, 0, 0, 2, 0, 0, 1, 1});
+
+	    //Representative case 2: partial overlap, three repeated elements in each of A and B
+	    multisetCase("multiset case 2",
+	        Arrays.asList("Venus", "Venus", "Venus", "Mars", "Mars", "Jupiter",
+	                      "Neptune", "Neptune", "Neptune", "Neptune"),
+	        Arrays.asList("Venus", "Mars", "Mars", "Uranus", "Uranus", "Neptune", "Neptune", "Pluto"),
+	        new int[] {0, 3, 0, 2, 1, 0, 0, 4, 0, 0},
+	        new int[] {0, 1, 0, 2, 0, 0, 2, 2, 1, 0},
+	        new int[] {0, 3, 0, 2, 1, 0, 2, 4, 1, 0},
+	        new int[] {0, 1, 0, 2, 0, 0, 0, 2, 0, 0},
+	        new int[] {0, 2, 0, 0, 1, 0, 0, 2, 0, 0},
+	        new int[] {0, 4, 0, 4, 1, 0, 2, 6, 1, 0});
+
+	    //Representative case 3: B is contained in A, so the intersection equals B
+	    multisetCase("multiset case 3",
+	        Arrays.asList("Mercury", "Mercury", "Mercury", "Mercury", "Earth", "Earth", "Earth", "Pluto", "Pluto"),
+	        Arrays.asList("Mercury", "Mercury", "Earth", "Earth"),
+	        new int[] {4, 0, 3, 0, 0, 0, 0, 0, 2, 0},
+	        new int[] {2, 0, 2, 0, 0, 0, 0, 0, 0, 0},
+	        new int[] {4, 0, 3, 0, 0, 0, 0, 0, 2, 0},
+	        new int[] {2, 0, 2, 0, 0, 0, 0, 0, 0, 0},
+	        new int[] {2, 0, 1, 0, 0, 0, 0, 0, 2, 0},
+	        new int[] {6, 0, 5, 0, 0, 0, 0, 0, 2, 0});
+
+	    //Edge case Tests
+	    Multiset a = new Multiset(UNIVERSE,
+	        Arrays.asList("Earth", "Earth", "Mercury", "Mercury", "Saturn", "Saturn", "Pluto"));
+	    Multiset empty = new Multiset(UNIVERSE, Arrays.asList());
+	    checkCounts("multiset edge: empty set union A", a.getCounts(), empty.union(a).getCounts());
+	    checkCounts("multiset edge: A minus A is all zeros", new int[10], a.difference(a).getCounts());
+
+	    try {
+	        new Multiset(UNIVERSE, Arrays.asList("John"));
+	        check("multiset name John (not in universe) rejected", false);
+	    }
+	    catch (IllegalArgumentException e) {
+	        check("multiset name John (not in universe) rejected | message: " + e.getMessage(), true);
+	    }
+
+	    Universe other = new Universe(Arrays.asList("Mercury", "Venus", "Earth"));
+	    Multiset c = new Multiset(other, Arrays.asList("Earth"));
+	    try {
+	        a.union(c);
+	        check("multiset union across different universes rejected", false);
+	    }
+	    catch (IllegalArgumentException e) {
+	        check("multiset union across different universes rejected | message: " + e.getMessage(), true);
+	    }
+	}
+
+}

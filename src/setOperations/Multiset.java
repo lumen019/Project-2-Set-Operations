@@ -1,8 +1,8 @@
 /*
  * Team name: LADS
  * Team members: Lia, Angel, David, Saul
- * Course: CSIS 2430
- * Programming Project 2
+ * Course: CSIS 2430 Section 501
+ * Programming Project 2 Fall 2026
  * File Author: Saul
  }
  */

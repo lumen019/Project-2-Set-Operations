@@ -1,8 +1,8 @@
 /*
  * Team name: LADS
  * Team members: Lia, Angel, David, Saul
- * Course: CSIS 2430
- * Programming Project 2
+ * Course: CSIS 2430 Section 501
+ * Programming Project 2 Fall 2026
  * File Author: Angel, Lia
  */
 
@@ -31,7 +31,7 @@ public class Main {
     System.out.println("Ordinary Set A Elements: " + a);
     
     System.out.println("Ordinary Set B Boolean Array: " + Arrays.toString(b.getSet()));
-    System.out.println("Ordinary Set B: " + b);
+    System.out.println("Ordinary Set B Elements: " + b);
     
     System.out.println();
     
@@ -55,7 +55,7 @@ public class Main {
     
     System.out.println();
     
-    System.out.println("Symmetric Difference Elements: " + Arrays.toString(a.symmetricDifference(b)));
+    System.out.println("Symmetric Difference Boolean Array: " + Arrays.toString(a.symmetricDifference(b)));
     System.out.println("Symmetric Difference Elements: " + a.convertToList(a.symmetricDifference(b)));
     
     
